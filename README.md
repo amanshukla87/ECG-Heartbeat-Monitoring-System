@@ -4,6 +4,10 @@
 
 This project presents a low-cost ECG monitoring and healthcare system developed using Arduino UNO and the AD8232 ECG Sensor Module. The system acquires real-time cardiac signals, visualizes ECG waveforms, and provides alerts for abnormal conditions.
 
+## Project Image
+
+![ECG Project Setup](WhatsApp%20Image%202026-05-30%20at%2011.00.13%20PM.jpeg)
+
 ## Features
 
 * Real-time ECG signal acquisition
