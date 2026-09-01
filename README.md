@@ -1,51 +1,72 @@
-# ECG Heartbeat Monitoring and Healthcare System
+# ECG Heartbeat Monitoring System
 
-## Overview
+A hardware-based ECG monitoring project built around the Arduino UNO and AD8232 ECG sensor module. The project focuses on acquiring an ECG signal, viewing the waveform in real time, and generating a simple alert based on the programmed condition.
 
-This project presents a low-cost ECG monitoring and healthcare system developed using Arduino UNO and the AD8232 ECG Sensor Module. The system acquires real-time cardiac signals, visualizes ECG waveforms, and provides alerts for abnormal conditions.
+## Project Overview
 
-## Project Image
+The system reads the analog output of the AD8232 sensor through the Arduino UNO and sends the sampled signal to a computer for visualization. A basic LED and buzzer interface is included for local indication.
 
-![ECG Project Setup](WhatsApp%20Image%202026-05-30%20at%2011.00.13%20PM.jpeg)
+The project was developed as hands-on practice in sensor interfacing, analog signal acquisition, serial communication, and embedded system prototyping.
 
-## Features
+## Hardware
 
-* Real-time ECG signal acquisition
-* ECG waveform visualization using Serial Plotter and Processing IDE
-* LED and buzzer-based alert system
-* Proteus simulation before hardware implementation
-* Low-cost healthcare monitoring solution
+- Arduino UNO
+- AD8232 ECG sensor module
+- LED indicators
+- Buzzer
+- Jumper wires
 
-## Hardware Components
+## Software & Tools
 
-* Arduino UNO
-* AD8232 ECG Sensor Module
-* LEDs
-* Buzzer
-* Jumper Wires
+- Arduino IDE
+- Arduino Serial Plotter
+- Processing IDE
+- Proteus
 
-## Software Tools
+## Working Flow
 
-* Arduino IDE
-* Proteus
-* Processing IDE
-* Arduino Serial Plotter
+```text
+ECG electrodes
+      ↓
+AD8232 ECG sensor
+      ↓
+Arduino UNO
+      ↓
+Analog signal acquisition
+      ↓
+Serial communication
+      ↓
+Waveform visualization
+```
 
-## Applications
+A separate LED/buzzer output provides a simple local indication based on the programmed threshold condition.
 
-* Healthcare Monitoring
-* Biomedical Signal Acquisition
-* Educational and Research Projects
+## What I Practiced
 
-## Project Outcomes
+- Interfacing an ECG sensor with a microcontroller
+- Reading and handling analog sensor data
+- Serial data transmission from Arduino
+- Real-time waveform visualization
+- Basic alert and indicator control
+- Proteus-based circuit testing before hardware implementation
 
-* Developed practical experience in sensor interfacing and embedded systems.
-* Learned real-time signal acquisition and monitoring techniques.
-* Gained experience in simulation, testing, and hardware implementation.
+## Project Status
+
+**Status:** Completed prototype
+
+This repository documents the hardware prototype and implementation work completed during development. It is intended as an embedded-systems learning project and is not a medical diagnostic device.
+
+## Future Improvements
+
+- Digital filtering and baseline-wander removal
+- More reliable heart-rate estimation
+- Improved signal conditioning
+- OLED/LCD-based local display
+- Data logging for offline analysis
+- Better abnormal-signal detection and validation
 
 ## Author
 
-Aman Shukla
-B.Tech Electronics Engineering (ECE'27)
+**Aman Shukla**  
+B.Tech Electronics Engineering | Sensors & Transducers Technology  
 Rajkiya Engineering College, Basti
-
