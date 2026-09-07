@@ -10,7 +10,15 @@ Electrocardiography (ECG) is a method of recording the electrical activity of th
 
 The project was developed as an individual hands-on implementation to strengthen practical understanding of **sensor interfacing, analog signal acquisition, serial communication, signal visualization, and embedded-system prototyping**.
 
-## 2. Objectives
+## 2. Prototype Implementation
+
+The following photograph shows the implemented hardware prototype, including the Arduino UNO, AD8232 ECG sensor module, ECG electrodes, breadboard connections, LED indicator, and buzzer.
+
+![ECG Heartbeat Monitoring System Prototype](images/ecg-heartbeat-monitoring-system.jpg)
+
+*Figure 1 — Arduino-based ECG heartbeat monitoring prototype.*
+
+## 3. Objectives
 
 - Interface an AD8232 ECG sensor with an Arduino UNO.
 - Acquire the analog ECG signal through the microcontroller's ADC.
@@ -19,7 +27,7 @@ The project was developed as an individual hands-on implementation to strengthen
 - Implement a basic LED and buzzer indication based on the programmed condition.
 - Validate the circuit and implementation through simulation before hardware testing.
 
-## 3. System Architecture
+## 4. System Architecture
 
 ```text
 ECG Electrodes
@@ -41,7 +49,7 @@ LED + Buzzer
 Local Indication
 ```
 
-## 4. Hardware Components
+## 5. Hardware Components
 
 | Component | Purpose |
 |---|---|
@@ -52,14 +60,14 @@ Local Indication
 | Buzzer | Audible indication |
 | Jumper Wires | Electrical connections |
 
-## 5. Software & Development Tools
+## 6. Software & Development Tools
 
 - **Arduino IDE** — firmware development and programming
 - **Arduino Serial Plotter** — real-time ECG waveform visualization
 - **Processing IDE** — graphical data visualization / interface development
 - **Proteus** — circuit simulation and pre-hardware verification
 
-## 6. Working Principle
+## 7. Working Principle
 
 1. ECG electrodes capture the electrical activity associated with the heart.
 2. The **AD8232** module conditions the low-level ECG signal and provides an analog output.
@@ -68,7 +76,7 @@ Local Indication
 5. The received data is plotted to observe the ECG waveform in real time.
 6. A programmed threshold-based condition controls the LED and buzzer for basic local indication.
 
-## 7. Implementation
+## 8. Implementation
 
 The implementation combines sensor interfacing and embedded firmware to establish a complete signal-acquisition path from the ECG sensor to the visualization interface.
 
@@ -84,7 +92,7 @@ The acquired samples are transmitted through the Arduino UNO's serial interface 
 
 An LED and buzzer are controlled by the Arduino based on the programmed threshold condition, providing a simple local indication mechanism.
 
-## 8. Testing & Validation
+## 9. Testing & Validation
 
 The project was developed through simulation and hardware prototyping. **Proteus** was used for circuit-level verification, followed by implementation and signal observation using the physical Arduino UNO and AD8232 module.
 
@@ -96,7 +104,7 @@ The primary validation objective was to verify:
 - Real-time waveform visualization
 - Correct operation of the programmed LED/buzzer indication
 
-## 9. Key Learning Outcomes
+## 10. Key Learning Outcomes
 
 - Analog sensor interfacing with a microcontroller
 - ADC-based signal acquisition
@@ -107,20 +115,20 @@ The primary validation objective was to verify:
 - Circuit simulation and hardware validation
 - Practical embedded-system debugging
 
-## 10. Project Status
+## 11. Project Status
 
 **Status:** Completed Prototype
 
 The project demonstrates a functional educational ECG signal acquisition and monitoring workflow. The implementation is intended for learning and experimentation in embedded systems and sensor interfacing.
 
-## 11. Limitations
+## 12. Limitations
 
 - The system is intended for educational experimentation rather than clinical use.
 - The alert mechanism is based on a basic programmed condition and should not be interpreted as medical analysis.
 - ECG signal quality can be affected by electrode placement, motion, electrical noise, and other environmental factors.
 - Advanced filtering, reliable heart-rate extraction, and clinically validated abnormality detection are outside the current scope.
 
-## 12. Future Improvements
+## 13. Future Improvements
 
 - Implement digital filtering and baseline-wander removal.
 - Develop a more robust heart-rate estimation algorithm.
@@ -129,7 +137,7 @@ The project demonstrates a functional educational ECG signal acquisition and mon
 - Improve signal-quality assessment and noise handling.
 - Develop more reliable signal-event detection and validation.
 
-## 13. Repository Purpose
+## 14. Repository Purpose
 
 This repository documents the implementation of an **Arduino-based ECG monitoring prototype** and the practical engineering concepts explored during its development.
 
