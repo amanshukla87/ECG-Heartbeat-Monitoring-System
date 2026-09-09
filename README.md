@@ -1,143 +1,183 @@
 # ECG Heartbeat Monitoring System
 
-A microcontroller-based ECG signal monitoring prototype developed using an **Arduino UNO** and **AD8232 ECG sensor module**. The system acquires an ECG signal, transmits the sampled data over serial communication, and provides real-time waveform visualization with a basic local alert interface.
+A microcontroller-based ECG signal monitoring prototype developed using an **Arduino UNO** and **AD8232 ECG sensor module**. The system acquires an ECG signal, monitors electrode lead-off status, transmits sampled data over serial communication, and provides basic local LED/buzzer indication.
 
 > **Note:** This project is an educational embedded-systems prototype and is **not a medical diagnostic device**.
 
 ## 1. Project Overview
 
-Electrocardiography (ECG) is a method of recording the electrical activity of the heart. This project demonstrates the basic process of acquiring an ECG signal using the AD8232 sensor, interfacing the sensor with an Arduino UNO, and visualizing the acquired signal on a computer.
+Electrocardiography (ECG) is a method of recording the electrical activity of the heart. This project demonstrates the basic process of acquiring an ECG signal using the AD8232 sensor, interfacing the sensor with an Arduino UNO, and observing the acquired signal through serial visualization.
 
-The project was developed as an individual hands-on implementation to strengthen practical understanding of **sensor interfacing, analog signal acquisition, serial communication, signal visualization, and embedded-system prototyping**.
+The project was developed as an individual hands-on implementation to strengthen practical understanding of **sensor interfacing, analog signal acquisition, lead-off detection, serial communication, and embedded-system prototyping**.
 
 ## 2. Prototype Implementation
 
-The following photograph shows the implemented hardware prototype, including the Arduino UNO, AD8232 ECG sensor module, ECG electrodes, breadboard connections, LED indicator, and buzzer.
+The following photograph shows the implemented hardware prototype, including the Arduino UNO, AD8232 ECG sensor module, ECG electrodes, breadboard connections, LED indicators, and buzzer.
 
 ![ECG Heartbeat Monitoring System Prototype](images/ecg-heartbeat-monitoring-system.jpg)
 
 *Figure 1 — Arduino-based ECG heartbeat monitoring prototype.*
 
-## 3. Objectives
+## 3. Circuit Design and Pin Mapping
+
+The circuit was organized around the Arduino UNO and AD8232 ECG sensor module. The diagram below presents a cleaned engineering-style representation of the wiring used for the prototype, including the ECG signal path, lead-off inputs, LED indicators, and buzzer.
+
+![ECG Circuit Diagram](images/ecg-circuit-diagram.svg)
+
+*Figure 2 — Cleaned circuit diagram based on the implemented prototype wiring.*
+
+### Arduino UNO to AD8232 Connections
+
+| Arduino UNO | AD8232 | Function |
+|---|---|---|
+| 3.3V | 3.3V | Sensor supply |
+| GND | GND | Common ground |
+| A0 | OUTPUT | Analog ECG signal |
+| D10 | LO+ | Lead-off detection |
+| D11 | LO− | Lead-off detection |
+
+### Local Indication Connections
+
+| Arduino UNO | Component | Function |
+|---|---|---|
+| D6 | Green LED through series resistor | Normal electrode connection indication |
+| D7 | Red LED through series resistor | Lead-off indication |
+| D8 | Buzzer | Audible lead-off indication |
+
+The ECG electrodes are connected to the AD8232 electrode input terminals. The Arduino UNO reads the conditioned ECG signal through **A0** while **D10** and **D11** monitor the AD8232 lead-off outputs.
+
+## 4. Objectives
 
 - Interface an AD8232 ECG sensor with an Arduino UNO.
 - Acquire the analog ECG signal through the microcontroller's ADC.
+- Monitor the AD8232 lead-off outputs.
 - Transmit sampled signal data through serial communication.
 - Visualize the ECG waveform in real time.
-- Implement a basic LED and buzzer indication based on the programmed condition.
-- Validate the circuit and implementation through simulation before hardware testing.
+- Implement LED and buzzer indication for electrode lead-off conditions.
+- Verify the circuit design before and during hardware implementation.
 
-## 4. System Architecture
+## 5. System Architecture
 
 ```text
 ECG Electrodes
       ↓
 AD8232 ECG Sensor Module
       ↓
-Arduino UNO
-      ↓
-Analog Signal Acquisition
-      ↓
-Serial Data Transmission
-      ↓
-Computer / Serial Visualization
-
-Arduino UNO
-      ↓
-LED + Buzzer
-      ↓
-Local Indication
+Analog ECG Signal ─────────→ Arduino UNO A0
+      ↓                         │
+Lead-Off Status ─────────────→ D10 / D11
+                                │
+                                ├──→ Serial Data → Computer / Serial Plotter
+                                │
+                                └──→ D6 / D7 / D8
+                                      ↓
+                                LED + Buzzer Indication
 ```
 
-## 5. Hardware Components
+## 6. Hardware Components
 
 | Component | Purpose |
 |---|---|
 | Arduino UNO | Microcontroller and analog signal acquisition |
-| AD8232 ECG Sensor Module | ECG signal conditioning and analog output |
+| AD8232 ECG Sensor Module | ECG signal conditioning and lead-off detection |
 | ECG Electrodes | Electrical signal acquisition from the subject |
-| LED | Visual indication |
-| Buzzer | Audible indication |
+| Green LED | Normal electrode connection indication |
+| Red LED | Lead-off indication |
+| Buzzer | Audible lead-off indication |
+| Series Resistors | LED current limiting |
+| Breadboard | Prototype circuit assembly |
 | Jumper Wires | Electrical connections |
 
-## 6. Software & Development Tools
+## 7. Software & Development Tools
 
 - **Arduino IDE** — firmware development and programming
-- **Arduino Serial Plotter** — real-time ECG waveform visualization
-- **Processing IDE** — graphical data visualization / interface development
-- **Proteus** — circuit simulation and pre-hardware verification
+- **Arduino Serial Monitor / Serial Plotter** — serial data observation and ECG waveform visualization
+- **Circuit-design / simulation software** — circuit planning and wiring verification
 
-## 7. Working Principle
+## 8. Working Principle
 
-1. ECG electrodes capture the electrical activity associated with the heart.
-2. The **AD8232** module conditions the low-level ECG signal and provides an analog output.
-3. The Arduino UNO samples the analog output using its ADC.
-4. The sampled values are transmitted to a computer through serial communication.
-5. The received data is plotted to observe the ECG waveform in real time.
-6. A programmed threshold-based condition controls the LED and buzzer for basic local indication.
+1. ECG electrodes acquire the electrical signal and feed it to the AD8232 module.
+2. The **AD8232** conditions the low-level ECG signal and provides an analog output.
+3. The Arduino UNO samples the analog output through **A0**.
+4. The Arduino monitors **LO+** and **LO−** through digital pins **D10** and **D11** to detect a lead-off condition.
+5. When the electrodes are connected correctly, the programmed green LED indication is enabled and the ECG samples are sent through the serial interface.
+6. When a lead-off condition is detected, the red LED and buzzer are activated.
+7. The serial data can be observed on a computer for waveform monitoring.
 
-## 8. Implementation
-
-The implementation combines sensor interfacing and embedded firmware to establish a complete signal-acquisition path from the ECG sensor to the visualization interface.
+## 9. Implementation
 
 ### Signal Acquisition
 
-The AD8232 analog output is connected to an Arduino UNO analog input. The microcontroller periodically reads the signal and prepares the sampled values for transmission.
+The AD8232 analog output is connected to **A0** of the Arduino UNO. The microcontroller periodically reads the signal using its built-in ADC and sends the sampled value through the serial interface.
 
-### Serial Communication
+### Lead-Off Detection
 
-The acquired samples are transmitted through the Arduino UNO's serial interface to a computer for monitoring and visualization.
+The AD8232 provides **LO+** and **LO−** outputs for detecting electrode disconnection. These signals are connected to **D10** and **D11** respectively. If either lead-off input becomes active, the firmware switches the visual and audible indication to the lead-off state.
 
 ### Local Indication
 
-An LED and buzzer are controlled by the Arduino based on the programmed threshold condition, providing a simple local indication mechanism.
+- **D6:** Green LED for the normal electrode-connection state.
+- **D7:** Red LED for the lead-off state.
+- **D8:** Buzzer for the lead-off alert.
 
-## 9. Testing & Validation
+The firmware does not perform clinical ECG interpretation or medical abnormality classification.
 
-The project was developed through simulation and hardware prototyping. **Proteus** was used for circuit-level verification, followed by implementation and signal observation using the physical Arduino UNO and AD8232 module.
+## 10. Firmware
 
-The primary validation objective was to verify:
+The Arduino firmware is available in:
 
-- Correct sensor-to-microcontroller interfacing
-- Successful analog signal acquisition
-- Stable serial data transmission
-- Real-time waveform visualization
-- Correct operation of the programmed LED/buzzer indication
+`Arduino/ECG_Heartbeat_Monitor.ino`
 
-## 10. Key Learning Outcomes
+The program initializes the analog input, lead-off inputs, LED outputs, buzzer output, and serial interface. ECG samples are printed to the serial interface when the electrode connection is considered valid; otherwise, the lead-off indication is activated.
+
+## 11. Testing & Validation
+
+The project was developed through circuit planning, simulation/design verification, and physical hardware prototyping.
+
+The main validation points were:
+
+- Correct Arduino UNO to AD8232 wiring
+- Correct 3.3V sensor supply and common ground
+- Analog ECG signal acquisition through A0
+- Lead-off detection through D10 and D11
+- Correct green/red LED operation
+- Correct buzzer operation during lead-off
+- Stable serial data transmission for waveform observation
+
+## 12. Key Learning Outcomes
 
 - Analog sensor interfacing with a microcontroller
 - ADC-based signal acquisition
+- Lead-off detection using a biomedical sensor module
 - Serial communication using Arduino
 - Basic ECG signal monitoring concepts
-- Real-time data visualization
 - Embedded firmware development
-- Circuit simulation and hardware validation
+- Circuit design and hardware validation
 - Practical embedded-system debugging
 
-## 11. Project Status
+## 13. Project Status
 
 **Status:** Completed Prototype
 
-The project demonstrates a functional educational ECG signal acquisition and monitoring workflow. The implementation is intended for learning and experimentation in embedded systems and sensor interfacing.
+The project demonstrates an educational ECG signal acquisition and monitoring workflow using an Arduino UNO and AD8232 sensor module. The implementation is intended for learning and experimentation in embedded systems and sensor interfacing.
 
-## 12. Limitations
+## 14. Limitations
 
 - The system is intended for educational experimentation rather than clinical use.
-- The alert mechanism is based on a basic programmed condition and should not be interpreted as medical analysis.
+- The LED and buzzer indication only represents the programmed lead-off condition and should not be interpreted as medical analysis.
 - ECG signal quality can be affected by electrode placement, motion, electrical noise, and other environmental factors.
 - Advanced filtering, reliable heart-rate extraction, and clinically validated abnormality detection are outside the current scope.
 
-## 13. Future Improvements
+## 15. Future Improvements
 
 - Implement digital filtering and baseline-wander removal.
 - Develop a more robust heart-rate estimation algorithm.
-- Add an OLED/LCD for standalone waveform or heart-rate display.
+- Add an OLED/LCD for standalone display.
 - Add data logging for offline ECG analysis.
 - Improve signal-quality assessment and noise handling.
 - Develop more reliable signal-event detection and validation.
 
-## 14. Repository Purpose
+## 16. Repository Purpose
 
 This repository documents the implementation of an **Arduino-based ECG monitoring prototype** and the practical engineering concepts explored during its development.
 
