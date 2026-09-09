@@ -20,11 +20,7 @@ The following photograph shows the implemented hardware prototype, including the
 
 ## 3. Circuit Design and Pin Mapping
 
-The circuit was organized around the Arduino UNO and AD8232 ECG sensor module. The diagram below presents a cleaned engineering-style representation of the wiring used for the prototype, including the ECG signal path, lead-off inputs, LED indicators, and buzzer.
-
-![ECG Circuit Diagram](images/ecg-circuit-diagram.svg)
-
-*Figure 2 — Cleaned circuit diagram based on the implemented prototype wiring.*
+The circuit uses an Arduino UNO with an AD8232 ECG sensor module. The pin assignments below correspond to the implemented firmware and the physical prototype.
 
 ### Arduino UNO to AD8232 Connections
 
@@ -63,15 +59,12 @@ ECG Electrodes
       ↓
 AD8232 ECG Sensor Module
       ↓
-Analog ECG Signal ─────────→ Arduino UNO A0
-      ↓                         │
-Lead-Off Status ─────────────→ D10 / D11
-                                │
-                                ├──→ Serial Data → Computer / Serial Plotter
-                                │
-                                └──→ D6 / D7 / D8
-                                      ↓
-                                LED + Buzzer Indication
+Analog ECG Signal → Arduino UNO A0
+Lead-Off Status   → D10 / D11
+      ↓
+Serial Data → Computer / Serial Plotter
+      ↓
+D6 / D7 / D8 → LED + Buzzer Indication
 ```
 
 ## 6. Hardware Components
@@ -100,7 +93,7 @@ Lead-Off Status ─────────────→ D10 / D11
 2. The **AD8232** conditions the low-level ECG signal and provides an analog output.
 3. The Arduino UNO samples the analog output through **A0**.
 4. The Arduino monitors **LO+** and **LO−** through digital pins **D10** and **D11** to detect a lead-off condition.
-5. When the electrodes are connected correctly, the programmed green LED indication is enabled and the ECG samples are sent through the serial interface.
+5. When the electrode connection is valid, the programmed green LED indication is enabled and the ECG samples are sent through the serial interface.
 6. When a lead-off condition is detected, the red LED and buzzer are activated.
 7. The serial data can be observed on a computer for waveform monitoring.
 
