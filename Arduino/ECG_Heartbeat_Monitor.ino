@@ -1,4 +1,4 @@
-// Arduino-Based ECG Heartbeat Monitoring and Healthcare System
+// Arduino-Based ECG Heartbeat Monitoring Prototype
 // Arduino UNO + AD8232 ECG sensor
 
 const int ecgPin = A0;
