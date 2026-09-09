@@ -1,5 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1620" height="1080" viewBox="0 0 1620 1080">
-  <title>ECG Heartbeat Monitoring System — Circuit Diagram</title>
-  <desc>HD circuit-design diagram for the Arduino UNO and AD8232 ECG monitoring prototype, including LED and buzzer indicators.</desc>
-  <image href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCA..." width="1620" height="1080" preserveAspectRatio="xMidYMid meet"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="950" viewBox="0 0 1600 950">
+<rect width="1600" height="950" fill="white"/>
+<text x="800" y="55" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">ECG Heartbeat Monitoring System — Circuit Diagram</text>
+<text x="800" y="88" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17">Arduino UNO + AD8232 ECG Sensor Module + LED/Buzzer Indication</text>
+<rect x="90" y="170" width="430" height="570" rx="18" fill="#e8eef2" stroke="#263238" stroke-width="3"/>
+<text x="305" y="215" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700">Arduino UNO</text>
+<text x="305" y="245" text-anchor="middle" font-family="Arial" font-size="16">Controller / ADC / Serial Output</text>
+<g font-family="Arial" font-size="18">
+<text x="110" y="300">3.3V</text><circle cx="505" cy="294" r="7" fill="#d32f2f"/>
+<text x="110" y="340">GND</text><circle cx="505" cy="334" r="7" fill="#263238"/>
+<text x="110" y="390">A0</text><circle cx="505" cy="384" r="7" fill="#f0b400"/>
+<text x="110" y="440">D10</text><circle cx="505" cy="434" r="7" fill="#2e7d32"/>
+<text x="110" y="490">D11</text><circle cx="505" cy="484" r="7" fill="#7b1fa2"/>
+<text x="110" y="555">D6</text><circle cx="505" cy="549" r="7" fill="#0288d1"/>
+<text x="110" y="605">D7</text><circle cx="505" cy="599" r="7" fill="#d32f2f"/>
+<text x="110" y="655">D8</text><circle cx="505" cy="649" r="7" fill="#8d3b00"/>
+</g>
+<rect x="760" y="175" width="390" height="360" rx="18" fill="#f3f3f3" stroke="#263238" stroke-width="3"/>
+<text x="955" y="220" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700">AD8232 ECG Sensor</text>
+<text x="955" y="248" text-anchor="middle" font-family="Arial" font-size="16">Signal conditioning + lead-off detection</text>
+<g font-family="Arial" font-size="18">
+<text x="785" y="300">GND</text><circle cx="775" cy="294" r="7" fill="#263238"/>
+<text x="785" y="345">3.3V</text><circle cx="775" cy="339" r="7" fill="#d32f2f"/>
+<text x="785" y="390">OUTPUT</text><circle cx="775" cy="384" r="7" fill="#f0b400"/>
+<text x="785" y="435">LO+</text><circle cx="775" cy="429" r="7" fill="#2e7d32"/>
+<text x="785" y="480">LO−</text><circle cx="775" cy="474" r="7" fill="#7b1fa2"/>
+</g>
+<rect x="810" y="565" width="290" height="120" rx="12" fill="#fff" stroke="#263238" stroke-width="2"/>
+<text x="955" y="600" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700">ECG Electrodes</text>
+<text x="955" y="632" text-anchor="middle" font-family="Arial" font-size="16">RA / LA / RL connections</text>
+<line x1="955" y1="535" x2="955" y2="565" stroke="#263238" stroke-width="3"/>
+<text x="955" y="548" text-anchor="middle" font-family="Arial" font-size="13">Electrode input</text>
+<rect x="760" y="735" width="390" height="150" rx="18" fill="#f8f8f8" stroke="#263238" stroke-width="3"/>
+<text x="955" y="770" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700">Local Indication</text>
+<text x="790" y="815" font-family="Arial" font-size="17">D6 → Green LED → 220Ω → GND</text>
+<text x="790" y="845" font-family="Arial" font-size="17">D7 → Red LED → 220Ω → GND</text>
+<text x="790" y="875" font-family="Arial" font-size="17">D8 → Buzzer → GND</text>
+<path d="M505 294 H650 V339 H775" fill="none" stroke="#d32f2f" stroke-width="5"/>
+<path d="M505 334 H670 V294 H775" fill="none" stroke="#263238" stroke-width="5"/>
+<path d="M505 384 H620 V384 H775" fill="none" stroke="#f0b400" stroke-width="5"/>
+<path d="M505 434 H650 V429 H775" fill="none" stroke="#2e7d32" stroke-width="5"/>
+<path d="M505 484 H680 V474 H775" fill="none" stroke="#7b1fa2" stroke-width="5"/>
+<path d="M505 549 H590 V805 H760" fill="none" stroke="#0288d1" stroke-width="5"/>
+<path d="M505 599 H610 V840 H760" fill="none" stroke="#d32f2f" stroke-width="5"/>
+<path d="M505 649 H630 V875 H760" fill="none" stroke="#8d3b00" stroke-width="5"/>
+<g font-family="Arial" font-size="15" font-weight="700">
+<text x="575" y="326">3.3V POWER</text><text x="575" y="375">ECG ANALOG</text><text x="580" y="421">LEAD-OFF +</text><text x="600" y="466">LEAD-OFF −</text>
+</g>
+<rect x="1210" y="175" width="310" height="360" rx="14" fill="#fafafa" stroke="#263238" stroke-width="2"/>
+<text x="1365" y="215" text-anchor="middle" font-family="Arial" font-size="23" font-weight="700">Pin Mapping</text>
+<g font-family="Arial" font-size="17">
+<text x="1235" y="260">A0</text><text x="1300" y="260">AD8232 OUTPUT</text>
+<text x="1235" y="300">D10</text><text x="1300" y="300">AD8232 LO+</text>
+<text x="1235" y="340">D11</text><text x="1300" y="340">AD8232 LO−</text>
+<text x="1235" y="380">D6</text><text x="1300" y="380">Green LED</text>
+<text x="1235" y="420">D7</text><text x="1300" y="420">Red LED</text>
+<text x="1235" y="460">D8</text><text x="1300" y="460">Buzzer</text>
+<text x="1235" y="500">3.3V/GND</text><text x="1360" y="500">Sensor power</text>
+</g>
+<text x="800" y="925" text-anchor="middle" font-family="Arial" font-size="15">Educational prototype — verify connections and component ratings before hardware use.</text>
 </svg>
