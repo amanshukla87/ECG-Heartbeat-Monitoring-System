@@ -20,13 +20,7 @@ The following photograph shows the implemented hardware prototype, including the
 
 ## 3. Circuit Design and Pin Mapping
 
-The following diagram is the **original circuit-design image used for this project**, showing the Arduino UNO, AD8232 ECG module, breadboard, LEDs, buzzer, and wiring.
-
-![ECG Heartbeat Monitoring System Circuit Diagram](images/ecg-circuit-diagram-real-hd.jpg)
-
-*Figure 2 — Original ECG circuit diagram used for the project.*
-
-The circuit uses an Arduino UNO with an AD8232 ECG sensor module. The pin assignments below correspond to the implemented firmware and the project circuit.
+The circuit uses an Arduino UNO with an AD8232 ECG sensor module. The pin assignments below correspond to the implemented firmware and the physical prototype.
 
 ### Arduino UNO to AD8232 Connections
 
