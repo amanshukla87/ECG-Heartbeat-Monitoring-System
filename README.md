@@ -14,7 +14,6 @@ The implementation was developed as a hands-on embedded-systems project to pract
 
 The implemented circuit diagram is included below and documents the Arduino UNO, AD8232 ECG sensor, electrode connections, LED indicators, and buzzer connections.
 
-![ECG Circuit Diagram](images/ecg-circuit-diagram.png)
 
 *Figure 1 — ECG monitoring circuit diagram.*
 
