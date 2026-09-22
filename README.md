@@ -81,26 +81,36 @@ The Arduino UNO R3 is based on the ATmega328P and provides the digital I/O and a
 
 ## System Architecture
 
-```text
-ECG Electrodes
-      ↓
-AD8232 ECG Sensor Module
-      ↓
-Analog ECG Signal → Arduino UNO A0
-Lead-Off Status   → D10 / D11
-      ↓
-Serial Data
-      ↓
-Computer
-      ↓
-Processing → ECG Waveform Visualization
+The system follows a straightforward signal-acquisition and monitoring path, from ECG electrodes through signal conditioning and microcontroller acquisition to computer-based waveform visualization.
 
-D6 / D7 / D8
-      ↓
-Green LED / Red LED / Buzzer
-      ↓
-Local Status Indication
+```mermaid
+flowchart TB
+    ELECTRODES["ECG Electrodes"]
+    AD8232["AD8232<br/>ECG Signal Conditioning"]
+    ARDUINO["Arduino UNO<br/>Analog Acquisition"]
+
+    SERIAL["Serial Communication"]
+    COMPUTER["Computer"]
+    PROCESSING["Processing<br/>ECG Waveform Visualization"]
+
+    LEADOFF["Lead-Off Detection<br/>D10 / D11"]
+    STATUS["Local Status Indication"]
+    LEDS["Green LED / Red LED"]
+    BUZZER["Buzzer"]
+
+    ELECTRODES --> AD8232
+    AD8232 -->|"ECG Analog Signal"| ARDUINO
+    ARDUINO --> SERIAL
+    SERIAL --> COMPUTER
+    COMPUTER --> PROCESSING
+
+    AD8232 -->|"Lead-Off Status"| LEADOFF
+    LEADOFF --> STATUS
+    STATUS --> LEDS
+    STATUS --> BUZZER
 ```
+
+The architecture represents the current prototype implementation, including ECG acquisition, lead-off monitoring, serial transmission, waveform visualization, and local status indication.
 
 ## Firmware
 
