@@ -1,1 +1,12 @@
-This file is temporary.
+# Project Images
+
+This directory contains the images used to document the ECG Heartbeat Monitoring System.
+
+## Contents
+
+- `ecg-circuit-diagram.png` — Circuit diagram of the Arduino UNO and AD8232 interface.
+- `ecg-hardware-setup.jpeg` — Photograph of the assembled hardware prototype.
+- `ECG_Waveform.png` — ECG waveform visualization.
+- `IMG-20250219-WA0012.jpg` — Additional project photograph.
+
+These images are referenced by the main repository README for hardware and project documentation.
