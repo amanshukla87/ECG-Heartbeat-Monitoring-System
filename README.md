@@ -1,34 +1,35 @@
 # ECG Heartbeat Monitoring System
 
-A microcontroller-based ECG signal monitoring prototype built using an **Arduino UNO** and **AD8232 ECG sensor module**. The system acquires ECG signals, monitors electrode lead-off status, sends sampled data over serial communication, and visualizes the waveform on a computer using **Processing**.
+A microcontroller-based ECG signal monitoring prototype built using an **Arduino UNO** and **AD8232 ECG sensor module**. The system acquires ECG signals, detects electrode lead-off conditions, sends sampled data over serial communication, and visualizes the waveform on a computer using **Processing**.
 
 > **Note:** This is an educational embedded-systems prototype and is **not a medical diagnostic device**.
 
 ## Project Overview
 
-The project demonstrates a complete ECG signal acquisition workflow:
+The prototype demonstrates an ECG signal acquisition and visualization workflow:
 
 **ECG Electrodes → AD8232 → Arduino UNO → Serial Communication → Processing**
 
-In addition to waveform acquisition, the prototype includes local **LED and buzzer indication** for electrode lead-off conditions.
+The Arduino reads the analog ECG signal from the AD8232, monitors the **LO+ / LO−** lead-off outputs, and provides local LED and buzzer indication. Valid ECG samples are transmitted at **9600 baud** for computer-side visualization.
 
 ## Features
 
 - ECG signal acquisition using the **AD8232**
-- Analog signal sampling through the **Arduino UNO ADC**
+- Analog ECG sampling through the **Arduino UNO ADC**
 - Electrode lead-off detection using **LO+ / LO−**
-- Serial transmission of ECG samples at **9600 baud**
+- Serial transmission at **9600 baud**
 - Real-time ECG waveform visualization using **Processing**
-- Green LED indication for normal electrode connection
-- Red LED and buzzer indication for lead-off condition
+- Green LED indication when electrodes are connected
+- Red LED and buzzer indication during lead-off detection
+- Arduino Serial Plotter-compatible ECG sample output
 
 ## Hardware
 
 | Component | Purpose |
 |---|---|
-| **Arduino UNO R3** | Main microcontroller and ECG signal acquisition |
+| **Arduino UNO R3** | Microcontroller and ECG signal acquisition |
 | **AD8232 ECG Sensor Module** | ECG signal conditioning and analog output |
-| **ECG Electrodes** | Capture ECG electrical signals |
+| **ECG Electrodes** | ECG signal acquisition |
 | **Green LED** | Normal electrode connection indication |
 | **Red LED** | Lead-off indication |
 | **Buzzer** | Audible lead-off indication |
@@ -39,23 +40,23 @@ In addition to waveform acquisition, the prototype includes local **LED and buzz
 
 ![ECG circuit diagram](images/ecg-circuit-diagram.png)
 
-The circuit connects the AD8232 ECG sensor to the Arduino UNO for analog ECG acquisition and lead-off detection.
+The AD8232 provides the conditioned ECG signal to the Arduino UNO and exposes lead-off detection signals through **LO+** and **LO−**.
 
 ## Hardware Setup
 
 ![ECG hardware setup](images/ecg-hardware-setup.jpeg)
 
-The hardware prototype consists of the Arduino UNO, AD8232 ECG sensor module, ECG electrodes, LEDs, buzzer, and supporting wiring.
+The prototype uses an Arduino UNO, AD8232 ECG module, ECG electrodes, LEDs, buzzer, and supporting connections.
 
 ## ECG Waveform
 
 ![ECG waveform](images/ECG_Waveform.png)
 
-The acquired ECG signal is transmitted from the Arduino to the computer and visualized using the Processing sketch.
+The Arduino transmits valid ECG ADC samples over serial. The Processing sketch reads these samples and renders the waveform on the computer.
 
-## Additional Project Image
+## Project Image
 
-![Additional ECG project image](images/IMG-20250219-WA0012.jpg)
+![ECG project image](images/IMG-20250219-WA0012.jpg)
 
 ## Pin Configuration
 
@@ -73,16 +74,16 @@ The acquired ECG signal is transmitted from the Arduino to the computer and visu
 
 | Arduino UNO | Component | Function |
 |---|---|---|
-| **D6** | Green LED | Normal electrode connection |
+| **D6** | Green LED | Electrodes connected |
 | **D7** | Red LED | Lead-off indication |
-| **D8** | Buzzer | Audible lead-off indication |
+| **D8** | Buzzer | Lead-off indication |
 
 ## Software and Tools
 
 - **Arduino IDE** — Firmware development and upload
 - **C/C++** — Arduino firmware
-- **Processing** — ECG waveform visualization
-- **Java / Processing Java Mode** — Computer-side visualization
+- **Processing** — Computer-side ECG waveform visualization
+- **Java / Processing Java Mode** — Processing sketch
 - **Serial Communication** — Transfers ECG samples from Arduino to the computer
 
 ## Firmware
@@ -91,13 +92,16 @@ Arduino firmware:
 
 `Arduino/ECG_Heartbeat_Monitor.ino`
 
-The firmware uses:
+The firmware:
 
-- **A0** — ECG analog input
-- **D10 / D11** — AD8232 lead-off detection
-- **D6 / D7** — LED indication
-- **D8** — Buzzer
-- **9600 baud** — Serial communication
+1. Reads the ECG signal from **A0** using `analogRead()`.
+2. Checks **D10 / D11** for electrode lead-off.
+3. Turns the green LED on when the lead-off inputs are inactive.
+4. Turns the red LED and buzzer on when a lead-off condition is detected.
+5. Sends ECG ADC samples over serial at **9600 baud** when the electrodes are connected.
+6. Sends the text `Lead off` when a lead-off condition is detected.
+
+The loop includes a **5 ms delay**, giving an approximate maximum sampling interval of 200 samples/second before accounting for serial transmission and execution overhead.
 
 ## Processing Visualization
 
@@ -105,7 +109,16 @@ Processing source:
 
 `Processing/ECG_Waveform_Processing.pde`
 
-The Processing sketch receives the serial ECG samples from the Arduino and displays the waveform on the computer.
+The Processing sketch:
+
+- Opens the Arduino serial connection at **9600 baud**.
+- Uses **COM17** as the configured serial port.
+- Maintains a waveform buffer.
+- Accepts Arduino ADC values from **0–1023**.
+- Draws the ECG waveform with a reference grid.
+- Displays the serial port and baud-rate information.
+
+> **Important:** Change `COM17` in the Processing sketch if the Arduino appears on a different serial port on your computer.
 
 ## System Architecture
 
@@ -113,10 +126,9 @@ The Processing sketch receives the serial ECG samples from the Arduino and displ
 flowchart LR
     A["ECG Electrodes"] --> B["AD8232 ECG Sensor"]
     B -->|"Analog ECG Signal"| C["Arduino UNO"]
-    C -->|"Serial @ 9600 baud"| D["Computer"]
-    D --> E["Processing<br/>ECG Waveform"]
-
     B -->|"LO+ / LO−"| C
+    C -->|"Serial @ 9600 baud"| D["Computer"]
+    D --> E["Processing ECG Waveform"]
     C --> F["Green LED"]
     C --> G["Red LED"]
     C --> H["Buzzer"]
@@ -124,11 +136,11 @@ flowchart LR
 
 ## Objectives
 
-- Interface an AD8232 ECG sensor with an Arduino UNO.
+- Interface an **AD8232 ECG sensor** with an Arduino UNO.
 - Acquire ECG signals through the Arduino ADC.
 - Detect electrode lead-off conditions.
 - Transmit ECG samples through serial communication.
-- Visualize the ECG waveform on a computer.
+- Visualize the acquired waveform on a computer.
 - Provide basic local status indication.
 
 ## Project Status
@@ -137,13 +149,15 @@ flowchart LR
 
 **Academic Context:** B.Tech 2nd Year — 3rd Semester Minor Project
 
-The project was developed as a minor project to apply embedded-systems concepts including ECG signal acquisition, sensor interfacing, serial communication, and computer-based waveform visualization.
+The project was developed as an academic embedded-systems prototype covering sensor interfacing, analog signal acquisition, digital status monitoring, serial communication, and computer-based waveform visualization.
 
 ## Limitations
 
 - This prototype is **not intended for medical diagnosis or clinical use**.
-- ECG signal quality depends on electrode placement, movement, electrical noise, and other environmental factors.
-- The project focuses on signal acquisition and visualization rather than clinically validated heart-rate or arrhythmia diagnosis.
+- Signal quality depends on electrode placement, movement, electrical noise, and other environmental conditions.
+- The current firmware does **not implement clinically validated heart-rate or arrhythmia detection**.
+- The Processing visualization is intended for signal observation rather than medical interpretation.
+- The Processing sketch currently uses a fixed serial port configuration (**COM17**).
 
 ## Repository Structure
 
@@ -159,6 +173,7 @@ ECG-Heartbeat-Monitoring-System/
 │   ├── README
 │   ├── ecg-circuit-diagram.png
 │   └── ecg-hardware-setup.jpeg
+├── ecg-circuit-diagram.png
 ├── LICENSE
 └── README.md
 ```
