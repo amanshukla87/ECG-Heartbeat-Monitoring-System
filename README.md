@@ -135,7 +135,9 @@ flowchart LR
 
 **Status: Completed Prototype**
 
-The project was developed as an educational embedded-systems project to demonstrate ECG signal acquisition, sensor interfacing, serial communication, and computer-based waveform visualization.
+**Academic Context:** B.Tech 2nd Year — 3rd Semester Minor Project
+
+The project was developed as a minor project to apply embedded-systems concepts including ECG signal acquisition, sensor interfacing, serial communication, and computer-based waveform visualization.
 
 ## Limitations
 
